@@ -5,12 +5,15 @@ import { NewRecipeInput } from './dto/new-recipe.input';
 import { RecipesArgs } from './dto/recipes.args';
 import { Recipe } from './models/recipe.model';
 import { RecipesService } from './recipes.service';
+import { BaseResolver} from './base-class.resolver';
 
 const pubSub = new PubSub();
 
 @Resolver(of => Recipe)
-export class RecipesResolver {
-  constructor(private readonly recipesService: RecipesService) {}
+export class RecipesResolver extends BaseResolver {
+  constructor(private readonly recipesService: RecipesService) {
+	  super();
+  }
 
   @Query(returns => Recipe)
   async recipe(@Args('id') id: string): Promise<Recipe> {
